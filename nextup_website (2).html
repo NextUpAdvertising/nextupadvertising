@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NextUp | Performance-Based Marketing</title>
+    
+    <!-- Tailwind CSS for Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter for a clean, professional look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Configuration for Custom Brand Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb', // Primary Blue Accent
+                            900: '#1e3a8a',
+                        }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.4s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Ensuring proper focus styles for accessibility */
+        *:focus-visible {
+            outline: 2px solid #2563eb;
+            outline-offset: 2px;
+        }
+        /* Custom class for page sections to handle animations */
+        .page-section:not(.hidden) {
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 antialiased flex flex-col min-h-screen relative">
+
+    <!-- Notification Toast (Hidden by default, slides down on copy) -->
+    <div id="copy-toast" class="fixed top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-gray-900 text-white px-6 py-3 rounded-b-lg shadow-xl transition-transform duration-300 z-[9999] flex items-center gap-2 font-medium">
+        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        Email copied to clipboard!
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#home" class="flex items-center gap-2 text-2xl font-bold tracking-tight text-gray-900 group">
+                        <!-- SVG Logo Graphic -->
+                        <div class="w-8 h-8 bg-brand-600 text-white rounded flex items-center justify-center transform group-hover:scale-105 transition-transform">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                            </svg>
+                        </div>
+                        Next<span class="text-brand-600">Up</span>
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-gray-600 hover:text-brand-600 transition-colors font-medium">Home</a>
+                    <a href="#about" class="nav-link text-gray-600 hover:text-brand-600 transition-colors font-medium">About Us</a>
+                    <a href="#contact" class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-md font-medium transition-all shadow-sm hover:shadow-md">Get Started</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="flex items-center md:hidden">
+                    <button type="button" id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 p-2 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="md:hidden hidden bg-white border-t border-gray-100" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg">
+                <a href="#home" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 rounded-md">Home</a>
+                <a href="#about" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 rounded-md">About Us</a>
+                <a href="#contact" class="mobile-link block px-3 py-2 text-base font-medium text-brand-600 hover:bg-brand-50 rounded-md">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="flex-grow">
+        
+        <!-- PAGE: HOME -->
+        <div id="home" class="page-section">
+            <!-- Hero Section -->
+            <section class="relative bg-white overflow-hidden border-b border-gray-200">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 lg:pt-32 lg:pb-36 text-center">
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">
+                        Marketing with <span class="text-brand-600">$0 Upfront Cost.</span><br />
+                        We only win when you win.
+                    </h1>
+                    <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-600 mx-auto mb-10">
+                        A true performance-based partnership. We build your campaigns, run your ads, and manage your social media. We only get paid by commission if the campaign works.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-4">
+                        <a href="#contact" class="bg-brand-600 text-white px-8 py-4 rounded-md font-semibold text-lg hover:bg-brand-700 transition-all shadow-md hover:shadow-lg">
+                            Take the Survey
+                        </a>
+                    </div>
+                </div>
+                <!-- Decorative subtle background shape -->
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-brand-50 opacity-50 blur-3xl -z-10 pointer-events-none"></div>
+            </section>
+
+            <!-- How It Works & Disclaimer -->
+            <section class="py-20 bg-gray-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">A Highly Involved Process</h2>
+                        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                            We don't just give you advice and walk away. We partner with you to execute every step of the marketing funnel.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
+                        <!-- Step 1 -->
+                        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center flex flex-col items-center">
+                            <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-xl font-bold mb-6">1</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Ad Creation</h3>
+                            <p class="text-gray-600">We work directly with you to design, script, and create compelling advertisements tailored to your specific audience.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center flex flex-col items-center">
+                            <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-xl font-bold mb-6">2</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Campaign Management</h3>
+                            <p class="text-gray-600">We run the advertisements on your behalf, continuously optimizing for performance to ensure maximum return on investment.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center flex flex-col items-center">
+                            <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-xl font-bold mb-6">3</div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-3">Social Media Management</h3>
+                            <p class="text-gray-600">Beyond just ads, we actively manage and grow your social media pages to build a lasting organic presence for your brand.</p>
+                        </div>
+                    </div>
+
+                    <!-- Disclaimer Banner -->
+                    <div class="bg-brand-50 border-l-4 border-brand-600 p-6 rounded-r-md">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0">
+                                <svg class="h-6 w-6 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="ml-4">
+                                <h3 class="text-lg font-medium text-brand-900">Important Service Area Note</h3>
+                                <p class="mt-2 text-brand-800">
+                                    We currently only offer <strong>on-site advertisement creation</strong> in the Columbus, Ohio area. 
+                                    If your business is located outside of Columbus, we can still run advertisements on your behalf and manage your social media pages perfectly, but we will not be able to travel for on-site content creation.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE: ABOUT US -->
+        <div id="about" class="page-section hidden py-20 bg-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-10">
+                <h2 class="text-4xl font-bold text-gray-900 mb-8">About Us</h2>
+                
+                <!-- ========================================== -->
+                <!-- TO EDIT THE ABOUT US TEXT:                 -->
+                <!-- Simply change the text inside the <p> tags -->
+                <!-- directly below this comment block.         -->
+                <!-- ========================================== -->
+                <div class="prose prose-lg mx-auto text-gray-600 leading-relaxed space-y-6">
+                    <p>
+                        Our mission is to make advertising affordable for everyone. We know how difficult it can be to get a business off the ground, which is why we completely eliminated the upfront risk of traditional marketing agencies.
+                    </p>
+                    <p>
+                        We target small businesses that don't have much money to spend on advertisements, providing them with agency-level expertise without the massive retainers. 
+                    </p>
+                    <p>
+                        However, our doors are open to everyone. We will happily work with anyone that is interested in our product and shares our drive for success. When you partner with NextUp, you're partnering with a team whose success is entirely tied to yours.
+                    </p>
+                </div>
+                <!-- ========================================== -->
+                <!-- END OF ABOUT US TEXT                       -->
+                <!-- ========================================== -->
+                
+                <div class="mt-16">
+                    <a href="#contact" class="bg-brand-600 text-white px-8 py-4 rounded-md font-semibold text-lg hover:bg-brand-700 transition-all shadow-md">
+                        Work With Us
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: CONTACT / GET STARTED -->
+        <div id="contact" class="page-section hidden py-20 bg-gray-50">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Get Started</h2>
+                    <p class="text-gray-600">
+                        Fill out the survey below so we can understand your business needs. We use this information strictly to determine how we can best tailor our services to help you grow.
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
+                    <!-- Formspree ID: Replace 'xaendjrv' with your specific ID -->
+                    <form id="contact-form" action="https://formspree.io/f/xaendjrv" method="POST" class="space-y-6">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Name -->
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name *</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                            </div>
+                            
+                            <!-- Business Name -->
+                            <div>
+                                <label for="business-name" class="block text-sm font-medium text-gray-700 mb-1">Business Name *</label>
+                                <input type="text" id="business-name" name="business-name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Email -->
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                            </div>
+                            
+                            <!-- Phone -->
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                            </div>
+                        </div>
+
+                        <!-- Website URL -->
+                        <div>
+                            <label for="website" class="block text-sm font-medium text-gray-700 mb-1">Website URL</label>
+                            <input type="url" id="website" name="website" placeholder="https://www.yourwebsite.com" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                        </div>
+
+                        <!-- Marketing Budget -->
+                        <div>
+                            <label for="budget" class="block text-sm font-medium text-gray-700 mb-1">Estimated Monthly Marketing Budget *</label>
+                            <select id="budget" name="budget" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="Under $500">Under $500</option>
+                                <option value="$500 - $1,000">$500 - $1,000</option>
+                                <option value="$1,000 - $2,500">$1,000 - $2,500</option>
+                                <option value="$2,500 - $5,000">$2,500 - $5,000</option>
+                                <option value="$5,000+">$5,000+</option>
+                            </select>
+                        </div>
+
+                        <!-- Current Challenges -->
+                        <div>
+                            <label for="challenges" class="block text-sm font-medium text-gray-700 mb-1">What are your current marketing challenges? *</label>
+                            <textarea id="challenges" name="challenges" rows="4" required placeholder="Tell us about your goals, what hasn't worked in the past, or what you need help with the most..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors resize-y"></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div>
+                            <button type="submit" id="submit-btn" class="w-full bg-brand-600 text-white font-semibold py-3 px-4 rounded-md hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-all shadow-sm text-lg flex justify-center items-center">
+                                Submit Survey
+                            </button>
+                        </div>
+                        
+                        <!-- Error Message Container (Shown by JS if fetch fails) -->
+                        <div id="form-error" class="hidden mt-4 p-4 rounded-md bg-red-50 text-red-800 text-sm text-center"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE: THANK YOU (Shown after submission) -->
+        <div id="thank-you" class="page-section hidden py-32 bg-white text-center">
+            <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Thank You for Reaching Out!</h2>
+                <p class="text-xl text-gray-600 mb-10">
+                    We've successfully received your survey. Our team will review your business needs and get back to you shortly to discuss how we can partner together.
+                </p>
+                <div class="flex flex-col items-center justify-center space-y-4">
+                    <a href="#home" class="bg-gray-900 text-white px-8 py-3 rounded-md font-semibold hover:bg-gray-800 transition-colors shadow-md">
+                        Return to Home
+                    </a>
+                    <!-- Reset button just in case they need to submit another form -->
+                    <button onclick="resetFormState()" class="text-brand-600 hover:text-brand-800 text-sm font-medium underline transition-colors">
+                        Need to submit another survey?
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-bold tracking-tight mb-2 flex justify-center items-center gap-2">
+                <!-- Tiny Footer Logo -->
+                <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+                Next<span class="text-brand-500">Up</span>
+            </h2>
+            <p class="text-gray-400 mb-6">Performance-Based Marketing Solutions</p>
+            
+            <div class="flex items-center justify-center space-x-2 text-gray-300 hover:text-white transition-colors mb-8">
+                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <!-- Changed to a button that triggers copy function instead of mailto: -->
+                <button type="button" onclick="copyEmailToClipboard('NextUpAdvertising1@gmail.com')" class="font-medium hover:text-brand-400 focus:outline-none transition-colors">NextUpAdvertising1@gmail.com</button>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-gray-500 text-sm">
+                &copy; <span id="year"></span> NextUp Advertising. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Interactivity -->
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // ----------------------------------------------------
+        // Global State for Form Submission
+        // ----------------------------------------------------
+        let hasSubmittedForm = false;
+
+        function resetFormState() {
+            hasSubmittedForm = false;
+            window.location.hash = '#contact'; // Go back to the form
+        }
+
+        // ----------------------------------------------------
+        // SPA ROUTING (Switching "Pages" within one file)
+        // ----------------------------------------------------
+        function handleRouting() {
+            // Get the hash from the URL (e.g., #about), default to #home
+            let hash = window.location.hash || '#home';
+            
+            // Logic to keep them on the "Thank You" page if they click "Get Started" after already submitting
+            if (hash === '#contact' && hasSubmittedForm) {
+                hash = '#thank-you';
+                // Silently update the URL to match where they actually are
+                history.replaceState(null, null, '#thank-you');
+            }
+
+            // Hide all page sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(sec => sec.classList.add('hidden'));
+            
+            // Find the target section and show it
+            const targetSection = document.querySelector(hash);
+            if (targetSection) {
+                targetSection.classList.remove('hidden');
+                // Scroll to top when changing "pages"
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            } else {
+                // Fallback to home if hash is invalid
+                document.getElementById('home').classList.remove('hidden');
+            }
+        }
+
+        // Listen for hash changes (when user clicks navigation links)
+        window.addEventListener('hashchange', handleRouting);
+        // Run once on page load to check initial URL
+        window.addEventListener('load', handleRouting);
+
+        // ----------------------------------------------------
+        // MOBILE MENU TOGGLE
+        // ----------------------------------------------------
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when a link is clicked
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // ----------------------------------------------------
+        // COPY EMAIL TO CLIPBOARD (With Fallback for local testing)
+        // ----------------------------------------------------
+        function copyEmailToClipboard(email) {
+            // Helper function to animate the toast down and back up
+            const showToast = () => {
+                const toast = document.getElementById('copy-toast');
+                toast.classList.remove('-translate-y-full');
+                toast.classList.add('translate-y-4'); // Adds a slight margin from the exact top
+
+                // Hide toast after 2 seconds
+                setTimeout(() => {
+                    toast.classList.remove('translate-y-4');
+                    toast.classList.add('-translate-y-full');
+                }, 2000);
+            };
+
+            // Modern approach (Works on HTTPS or Localhost)
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(email).then(() => {
+                    showToast();
+                }).catch(err => {
+                    console.error('Failed to copy text with modern API: ', err);
+                    fallbackCopy(email, showToast);
+                });
+            } else {
+                // Fallback approach (Works on file:// local testing)
+                fallbackCopy(email, showToast);
+            }
+        }
+
+        function fallbackCopy(text, successCallback) {
+            try {
+                // Create an invisible text area
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                
+                // Move it completely off-screen so it doesn't mess up layout
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                
+                // Focus and select the text
+                textArea.focus();
+                textArea.select();
+                
+                // Execute the classic copy command
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea); // Clean up
+                
+                if (successful) {
+                    successCallback();
+                } else {
+                    alert("Failed to copy email. Address is: " + text);
+                }
+            } catch (err) {
+                console.error('Fallback copy failed', err);
+                alert("Failed to copy email. Address is: " + text);
+            }
+        }
+
+        // ----------------------------------------------------
+        // BACKGROUND FORM SUBMISSION (No Reloads)
+        // ----------------------------------------------------
+        const form = document.getElementById('contact-form');
+        const formError = document.getElementById('form-error');
+        const submitBtn = document.getElementById('submit-btn');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault(); // Stop normal submission (prevents page reload)
+            
+            const actionUrl = form.getAttribute('action');
+            const formData = new FormData(form);
+            
+            // UI Feedback: Change button text while loading
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = "Sending...";
+            submitBtn.disabled = true;
+            formError.classList.add('hidden'); // Hide any previous errors
+            
+            // Check if the user hasn't replaced the placeholder Formspree URL yet
+            if (actionUrl.includes('YOUR_FORM_ID_HERE')) {
+                // Simulate a fast submission for testing
+                setTimeout(() => {
+                    hasSubmittedForm = true; // Set persistent state
+                    window.location.hash = '#thank-you'; // Switch to thank you page
+                    form.reset(); // Clear the form for next time
+                    submitBtn.innerText = originalBtnText;
+                    submitBtn.disabled = false;
+                }, 800);
+                return;
+            }
+
+            // Real submission via AJAX (Fetch API)
+            try {
+                const response = await fetch(actionUrl, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json' // Tells Formspree to return JSON instead of a webpage
+                    }
+                });
+
+                if (response.ok) {
+                    // Success! Redirect to Thank You page
+                    hasSubmittedForm = true; // Set persistent state
+                    window.location.hash = '#thank-you';
+                    form.reset(); // Clear form
+                } else {
+                    // Formspree returned an error (e.g. invalid setup)
+                    const data = await response.json();
+                    let errorMessage = "Oops! There was a problem submitting your form.";
+                    if (Object.hasOwn(data, 'errors')) {
+                        errorMessage = data.errors.map(error => error.message).join(', ');
+                    }
+                    formError.innerText = errorMessage;
+                    formError.classList.remove('hidden');
+                }
+            } catch (error) {
+                // Network error
+                formError.innerText = "Oops! There was a network error. Please try again.";
+                formError.classList.remove('hidden');
+            } finally {
+                // Reset button state
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
