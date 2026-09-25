@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NextUp | Performance-Based Marketing</title>
     
+    <!-- Dynamic SVG Favicon matching the brand logo -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' width='32' height='32' style='background-color:%232563eb;border-radius:6px;'><path d='M13 7h8m0 0v8m0-8l-8 8-4-4-6 6'/></svg>">
+    
     <!-- Tailwind CSS for Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
     
     <!-- Google Fonts: Inter for a clean, professional look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind Configuration for Custom Brand Colors -->
     <script>
@@ -25,24 +28,36 @@
                         brand: {
                             50: '#eff6ff',
                             100: '#dbeafe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
                             500: '#3b82f6',
                             600: '#2563eb', // Primary Blue Accent
+                            700: '#1d4ed8',
+                            800: '#1e40af',
                             900: '#1e3a8a',
                         }
                     },
                     animation: {
-                        'fade-in': 'fadeIn 0.4s ease-out',
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'blob': 'blob 7s infinite',
                     },
                     keyframes: {
                         fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '0%': { opacity: '0', transform: 'translateY(15px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
                         }
                     }
                 }
             }
         }
     </script>
+    
     <style>
         /* Ensuring proper focus styles for accessibility */
         *:focus-visible {
@@ -52,34 +67,41 @@
         /* Custom class for page sections to handle animations */
         .page-section:not(.hidden) {
             display: block;
-            animation: fadeIn 0.4s ease-out forwards;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        /* Subtle grid background for extra texture */
+        .bg-grid-pattern {
+            background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+            background-size: 24px 24px;
         }
     </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50 antialiased flex flex-col min-h-screen relative">
+<body class="font-sans text-gray-800 bg-gray-50 antialiased flex flex-col min-h-screen relative selection:bg-brand-100 selection:text-brand-900">
 
     <!-- Notification Toast (Hidden by default, slides down on copy) -->
-    <div id="copy-toast" class="fixed top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-gray-900 text-white px-6 py-3 rounded-b-lg shadow-xl transition-transform duration-300 z-[9999] flex items-center gap-2 font-medium">
-        <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-        </svg>
+    <div id="copy-toast" class="fixed top-0 left-1/2 transform -translate-x-1/2 -translate-y-full bg-gray-900/95 backdrop-blur-sm text-white px-6 py-3 rounded-b-xl shadow-2xl transition-transform duration-300 z-[9999] flex items-center gap-3 font-medium border border-gray-800 border-t-0">
+        <div class="bg-green-500/20 p-1 rounded-full">
+            <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+            </svg>
+        </div>
         Email copied to clipboard!
     </div>
 
-    <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50">
+    <!-- Navigation (Now with glassmorphism effect) -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-20">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="#home" class="flex items-center gap-2 text-2xl font-bold tracking-tight text-gray-900 group">
-                        <!-- SVG Logo Graphic -->
-                        <div class="w-8 h-8 bg-brand-600 text-white rounded flex items-center justify-center transform group-hover:scale-105 transition-transform">
+                    <a href="#home" class="flex items-center gap-2.5 text-2xl font-extrabold tracking-tight text-gray-900 group">
+                        <!-- SVG Logo Graphic with softer shadow -->
+                        <div class="w-9 h-9 bg-gradient-to-br from-brand-500 to-brand-700 text-white rounded-lg flex items-center justify-center transform group-hover:scale-105 group-hover:rotate-3 transition-all duration-300 shadow-md shadow-brand-500/20">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                             </svg>
                         </div>
-                        Next<span class="text-brand-600">Up</span>
+                        Next<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-blue-400">Up</span>
                     </a>
                 </div>
                 
@@ -87,12 +109,15 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="#home" class="nav-link text-gray-600 hover:text-brand-600 transition-colors font-medium">Home</a>
                     <a href="#about" class="nav-link text-gray-600 hover:text-brand-600 transition-colors font-medium">About Us</a>
-                    <a href="#contact" class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-md font-medium transition-all shadow-sm hover:shadow-md">Get Started</a>
+                    <!-- Enhanced CTA Button -->
+                    <a href="#contact" class="bg-gradient-to-r from-brand-600 via-brand-500 to-brand-400 bg-[length:200%_auto] bg-left hover:bg-right text-white px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ease-out shadow-md shadow-brand-500/25 hover:shadow-lg hover:shadow-brand-500/40 hover:-translate-y-0.5">
+                        Get Started
+                    </a>
                 </div>
 
                 <!-- Mobile menu button -->
                 <div class="flex items-center md:hidden">
-                    <button type="button" id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 p-2 focus:outline-none" aria-controls="mobile-menu" aria-expanded="false">
+                    <button type="button" id="mobile-menu-btn" class="text-gray-600 hover:text-gray-900 p-2 focus:outline-none rounded-md hover:bg-gray-100 transition-colors" aria-controls="mobile-menu" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -103,11 +128,11 @@
         </div>
 
         <!-- Mobile Menu (Hidden by default) -->
-        <div class="md:hidden hidden bg-white border-t border-gray-100" id="mobile-menu">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 shadow-lg">
-                <a href="#home" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 rounded-md">Home</a>
-                <a href="#about" class="mobile-link block px-3 py-2 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-gray-50 rounded-md">About Us</a>
-                <a href="#contact" class="mobile-link block px-3 py-2 text-base font-medium text-brand-600 hover:bg-brand-50 rounded-md">Get Started</a>
+        <div class="md:hidden hidden bg-white/95 backdrop-blur-md border-t border-gray-100 absolute w-full" id="mobile-menu">
+            <div class="px-4 pt-2 pb-4 space-y-2 shadow-xl">
+                <a href="#home" class="mobile-link block px-4 py-3 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors">Home</a>
+                <a href="#about" class="mobile-link block px-4 py-3 text-base font-medium text-gray-700 hover:text-brand-600 hover:bg-brand-50 rounded-lg transition-colors">About Us</a>
+                <a href="#contact" class="mobile-link block px-4 py-3 text-base font-semibold text-white bg-brand-600 hover:bg-brand-700 rounded-lg text-center mt-4 shadow-sm transition-colors">Get Started</a>
             </div>
         </div>
     </nav>
@@ -119,66 +144,75 @@
         <div id="home" class="page-section">
             <!-- Hero Section -->
             <section class="relative bg-white overflow-hidden border-b border-gray-200">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 lg:pt-32 lg:pb-36 text-center">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">
-                        Marketing with <span class="text-brand-600">$0 Upfront Cost</span>.<br />
+                <!-- Decorative background elements (Spiced up with animated blobs and grid) -->
+                <div class="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none z-0"></div>
+                
+                <!-- Ambient Glow 1 -->
+                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-72 h-72 rounded-full bg-brand-200 opacity-40 blur-3xl -z-10 pointer-events-none animate-blob"></div>
+                <!-- Ambient Glow 2 -->
+                <div class="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 rounded-full bg-blue-100 opacity-40 blur-3xl -z-10 pointer-events-none animate-blob" style="animation-delay: 2s;"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-28 lg:pt-36 lg:pb-40 text-center relative z-10">
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 tracking-tight leading-tight mb-6">
+                        Marketing with <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-blue-400">$0 Upfront Cost</span>.<br />
                         We only win when you win.
                     </h1>
-                    <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-600 mx-auto mb-10">
+                    <p class="mt-6 max-w-2xl text-lg md:text-xl text-gray-500 mx-auto mb-10 leading-relaxed font-medium">
                         A true performance-based partnership. We build your campaigns, run your ads, and manage your social media. We only get paid by commission if the campaign works.
                     </p>
                     <div class="flex flex-col sm:flex-row justify-center gap-4">
-                        <a href="#contact" class="bg-brand-600 text-white px-8 py-4 rounded-md font-semibold text-lg hover:bg-brand-700 transition-all shadow-md hover:shadow-lg">
+                        <a href="#contact" class="bg-gradient-to-r from-brand-600 via-brand-500 to-brand-400 bg-[length:200%_auto] bg-left hover:bg-right text-white px-8 py-4 rounded-xl font-bold text-lg transition-all duration-300 ease-out shadow-lg shadow-brand-500/25 hover:shadow-xl hover:shadow-brand-500/40 hover:-translate-y-1">
                             Contact Us!
                         </a>
                     </div>
                 </div>
-                <!-- Decorative subtle background shape -->
-                <div class="absolute top-0 right-0 -mr-20 -mt-20 w-64 h-64 rounded-full bg-brand-50 opacity-50 blur-3xl -z-10 pointer-events-none"></div>
             </section>
 
             <!-- How It Works & Disclaimer -->
-            <section class="py-20 bg-gray-50">
+            <section class="py-24 bg-gray-50/50">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center mb-16">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">A Highly Involved Process</h2>
-                        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+                    <div class="text-center mb-20">
+                        <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-5">A Highly Involved Process</h2>
+                        <p class="text-lg text-gray-500 max-w-3xl mx-auto font-medium">
                             We don't just give you advice and walk away. We partner with you to execute every step of the marketing funnel.
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
-                        <!-- Step 1 -->
-                        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center flex flex-col items-center">
-                            <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-xl font-bold mb-6">1</div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">Ad Creation</h3>
-                            <p class="text-gray-600">We work directly with you to design, script, and create compelling advertisements tailored to your specific audience.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 mb-20">
+                        <!-- Step 1 (Enhanced with hover effects) -->
+                        <div class="group bg-white p-10 rounded-2xl shadow-sm border border-gray-100 text-center flex flex-col items-center hover:-translate-y-2 hover:shadow-xl hover:border-brand-100 transition-all duration-300 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-b from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="relative z-10 w-16 h-16 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl font-black mb-8 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300 shadow-sm">1</div>
+                            <h3 class="relative z-10 text-xl font-bold text-gray-900 mb-4">Ad Creation</h3>
+                            <p class="relative z-10 text-gray-500 leading-relaxed">We work directly with you to design, script, and create compelling advertisements tailored to your specific audience.</p>
                         </div>
                         <!-- Step 2 -->
-                        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center flex flex-col items-center">
-                            <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-xl font-bold mb-6">2</div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">Campaign Management</h3>
-                            <p class="text-gray-600">We run the advertisements on your behalf, continuously optimizing for performance to ensure maximum return on investment.</p>
+                        <div class="group bg-white p-10 rounded-2xl shadow-sm border border-gray-100 text-center flex flex-col items-center hover:-translate-y-2 hover:shadow-xl hover:border-brand-100 transition-all duration-300 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-b from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="relative z-10 w-16 h-16 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl font-black mb-8 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300 shadow-sm">2</div>
+                            <h3 class="relative z-10 text-xl font-bold text-gray-900 mb-4">Campaign Management</h3>
+                            <p class="relative z-10 text-gray-500 leading-relaxed">We run the advertisements on your behalf, continuously optimizing for performance to ensure maximum return on investment.</p>
                         </div>
                         <!-- Step 3 -->
-                        <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center flex flex-col items-center">
-                            <div class="w-14 h-14 bg-brand-100 text-brand-600 rounded-full flex items-center justify-center text-xl font-bold mb-6">3</div>
-                            <h3 class="text-xl font-bold text-gray-900 mb-3">Social Media Management</h3>
-                            <p class="text-gray-600">Beyond just ads, we actively manage and grow your social media pages to build a lasting organic presence for your brand.</p>
+                        <div class="group bg-white p-10 rounded-2xl shadow-sm border border-gray-100 text-center flex flex-col items-center hover:-translate-y-2 hover:shadow-xl hover:border-brand-100 transition-all duration-300 relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-b from-brand-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            <div class="relative z-10 w-16 h-16 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center text-2xl font-black mb-8 group-hover:scale-110 group-hover:bg-brand-600 group-hover:text-white transition-all duration-300 shadow-sm">3</div>
+                            <h3 class="relative z-10 text-xl font-bold text-gray-900 mb-4">Social Media Management</h3>
+                            <p class="relative z-10 text-gray-500 leading-relaxed">Beyond just ads, we actively manage and grow your social media pages to build a lasting organic presence for your brand.</p>
                         </div>
                     </div>
 
                     <!-- Disclaimer Banner -->
-                    <div class="bg-brand-50 border-l-4 border-brand-600 p-6 rounded-r-md">
+                    <div class="bg-gradient-to-r from-brand-50 to-white border-l-4 border-brand-600 p-6 md:p-8 rounded-r-xl shadow-sm">
                         <div class="flex items-start">
-                            <div class="flex-shrink-0">
+                            <div class="flex-shrink-0 mt-0.5">
                                 <svg class="h-6 w-6 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
                             <div class="ml-4">
-                                <h3 class="text-lg font-medium text-brand-900">Important Service Area Note</h3>
-                                <p class="mt-2 text-brand-800">
+                                <h3 class="text-lg font-bold text-gray-900">Important Service Area Note</h3>
+                                <p class="mt-2 text-gray-600 leading-relaxed">
                                     We currently only offer <strong>on-site advertisement creation</strong> in the Columbus, Ohio area. 
                                     If your business is located outside of Columbus, we can still run advertisements on your behalf and manage your social media pages perfectly, but we will not be able to travel for on-site content creation.
                                 </p>
@@ -190,16 +224,11 @@
         </div>
 
         <!-- PAGE: ABOUT US -->
-        <div id="about" class="page-section hidden py-20 bg-white">
-            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center mt-10">
-                <h2 class="text-4xl font-bold text-gray-900 mb-8">About Us</h2>
+        <div id="about" class="page-section hidden py-24 bg-white relative">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-10">About Us</h2>
                 
-                <!-- ========================================== -->
-                <!-- TO EDIT THE ABOUT US TEXT:                 -->
-                <!-- Simply change the text inside the <p> tags -->
-                <!-- directly below this comment block.         -->
-                <!-- ========================================== -->
-                <div class="prose prose-lg mx-auto text-gray-600 leading-relaxed space-y-6">
+                <div class="mx-auto text-gray-600 leading-relaxed space-y-6 text-lg md:text-xl font-medium">
                     <p>
                         Our mission is to make advertising affordable for everyone. We know how difficult it can be to get a business off the ground, which is why we completely eliminated the upfront risk of traditional marketing agencies.
                     </p>
@@ -210,71 +239,73 @@
                         However, our doors are open to everyone. We will happily work with anyone that is interested in our product and shares our drive for success. When you partner with NextUp, you're partnering with a team whose success is entirely tied to yours.
                     </p>
                 </div>
-                <!-- ========================================== -->
-                <!-- END OF ABOUT US TEXT                       -->
-                <!-- ========================================== -->
                 
                 <div class="mt-16">
-                    <a href="#contact" class="bg-brand-600 text-white px-8 py-4 rounded-md font-semibold text-lg hover:bg-brand-700 transition-all shadow-md">
+                    <a href="#contact" class="inline-flex items-center gap-2 bg-gray-900 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
                         Work With Us
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
                     </a>
                 </div>
             </div>
+            <!-- Subtle background decoration -->
+            <div class="absolute top-1/2 left-0 transform -translate-y-1/2 w-32 h-64 bg-brand-50 rounded-r-full opacity-50 blur-2xl -z-10"></div>
+            <div class="absolute top-1/2 right-0 transform -translate-y-1/2 w-32 h-64 bg-blue-50 rounded-l-full opacity-50 blur-2xl -z-10"></div>
         </div>
 
         <!-- PAGE: CONTACT / GET STARTED -->
-        <div id="contact" class="page-section hidden py-20 bg-gray-50">
-            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-10">
-                <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold text-gray-900 mb-4">Get Started</h2>
-                    <p class="text-gray-600">
+        <div id="contact" class="page-section hidden py-24 bg-gray-50/50">
+            <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Get Started</h2>
+                    <p class="text-lg text-gray-500 font-medium max-w-2xl mx-auto">
                         Fill out the survey below so we can understand your business needs. We use this information strictly to determine how we can best tailor our services to help you grow.
                     </p>
                 </div>
 
-                <div class="bg-white p-8 rounded-xl shadow-md border border-gray-100">
-                    <!-- Formspree ID: Replace 'xaendjrv' with your specific ID -->
+                <div class="bg-white p-8 md:p-10 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100">
                     <form id="contact-form" action="https://formspree.io/f/xaendjrv" method="POST" class="space-y-6">
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Name -->
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Your Name *</label>
-                                <input type="text" id="name" name="name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                                <label for="name" class="block text-sm font-semibold text-gray-700 mb-2">Your Name *</label>
+                                <input type="text" id="name" name="name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-all shadow-sm">
                             </div>
                             
                             <!-- Business Name -->
                             <div>
-                                <label for="business-name" class="block text-sm font-medium text-gray-700 mb-1">Business Name *</label>
-                                <input type="text" id="business-name" name="business-name" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                                <label for="business-name" class="block text-sm font-semibold text-gray-700 mb-2">Business Name *</label>
+                                <input type="text" id="business-name" name="business-name" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-all shadow-sm">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Email -->
                             <div>
-                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address *</label>
-                                <input type="email" id="email" name="email" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                                <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email Address *</label>
+                                <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-all shadow-sm">
                             </div>
                             
                             <!-- Phone -->
                             <div>
-                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                                <label for="phone" class="block text-sm font-semibold text-gray-700 mb-2">Phone Number</label>
+                                <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-all shadow-sm">
                             </div>
                         </div>
 
                         <!-- Website URL -->
                         <div>
-                            <label for="website" class="block text-sm font-medium text-gray-700 mb-1">Website URL</label>
-                            <input type="url" id="website" name="website" placeholder="https://www.yourwebsite.com" class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
+                            <label for="website" class="block text-sm font-semibold text-gray-700 mb-2">Website URL</label>
+                            <input type="url" id="website" name="website" placeholder="https://www.yourwebsite.com" class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-all shadow-sm">
                         </div>
 
                         <!-- Marketing Budget -->
                         <div>
-                            <label for="budget" class="block text-sm font-medium text-gray-700 mb-1">Estimated Monthly Marketing Budget *</label>
-                            <select id="budget" name="budget" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors">
-                                <option value="" disabled selected>Select an option</option>
+                            <label for="budget" class="block text-sm font-semibold text-gray-700 mb-2">Estimated Monthly Marketing Budget *</label>
+                            <select id="budget" name="budget" required class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-all shadow-sm appearance-none">
+                                <option value="" disabled selected>Select an option...</option>
                                 <option value="Under $500">Under $500</option>
                                 <option value="$500 - $1,000">$500 - $1,000</option>
                                 <option value="$1,000 - $2,500">$1,000 - $2,500</option>
@@ -285,19 +316,19 @@
 
                         <!-- Current Challenges -->
                         <div>
-                            <label for="challenges" class="block text-sm font-medium text-gray-700 mb-1">What are your current marketing challenges? *</label>
-                            <textarea id="challenges" name="challenges" rows="4" required placeholder="Tell us about your goals, what hasn't worked in the past, or what you need help with the most..." class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-colors resize-y"></textarea>
+                            <label for="challenges" class="block text-sm font-semibold text-gray-700 mb-2">What are your current marketing challenges? *</label>
+                            <textarea id="challenges" name="challenges" rows="4" required placeholder="Tell us about your goals, what hasn't worked in the past, or what you need help with the most..." class="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 bg-gray-50 focus:bg-white transition-all shadow-sm resize-y"></textarea>
                         </div>
 
                         <!-- Submit Button -->
-                        <div>
-                            <button type="submit" id="submit-btn" class="w-full bg-brand-600 text-white font-semibold py-3 px-4 rounded-md hover:bg-brand-700 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-all shadow-sm text-lg flex justify-center items-center">
+                        <div class="pt-2">
+                            <button type="submit" id="submit-btn" class="w-full bg-gradient-to-r from-brand-600 via-brand-500 to-brand-400 bg-[length:200%_auto] bg-left hover:bg-right text-white font-bold py-4 px-6 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-all duration-300 ease-out shadow-lg shadow-brand-500/25 hover:shadow-xl hover:-translate-y-0.5 text-lg flex justify-center items-center">
                                 Submit
                             </button>
                         </div>
                         
-                        <!-- Error Message Container (Shown by JS if fetch fails) -->
-                        <div id="form-error" class="hidden mt-4 p-4 rounded-md bg-red-50 text-red-800 text-sm text-center"></div>
+                        <!-- Error Message Container -->
+                        <div id="form-error" class="hidden mt-4 p-4 rounded-xl bg-red-50 border border-red-100 text-red-800 text-sm font-medium text-center"></div>
                     </form>
                 </div>
             </div>
@@ -306,21 +337,20 @@
         <!-- PAGE: THANK YOU (Shown after submission) -->
         <div id="thank-you" class="page-section hidden py-32 bg-white text-center">
             <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                <div class="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-inner">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
                     </svg>
                 </div>
-                <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Thank You for Reaching Out!</h2>
-                <p class="text-xl text-gray-600 mb-10">
+                <h2 class="text-4xl font-extrabold text-gray-900 mb-6">Thank You for Reaching Out!</h2>
+                <p class="text-xl text-gray-600 mb-12 font-medium leading-relaxed">
                     We've successfully received your survey. Our team will review your business needs and get back to you shortly to discuss how we can partner together.
                 </p>
-                <div class="flex flex-col items-center justify-center space-y-4">
-                    <a href="#home" class="bg-gray-900 text-white px-8 py-3 rounded-md font-semibold hover:bg-gray-800 transition-colors shadow-md">
+                <div class="flex flex-col items-center justify-center space-y-6">
+                    <a href="#home" class="bg-gray-900 text-white px-8 py-3.5 rounded-xl font-bold hover:bg-gray-800 transition-all shadow-lg hover:-translate-y-0.5">
                         Return to Home
                     </a>
-                    <!-- Reset button just in case they need to submit another form -->
-                    <button onclick="resetFormState()" class="text-brand-600 hover:text-brand-800 text-sm font-medium underline transition-colors">
+                    <button onclick="resetFormState()" class="text-gray-500 hover:text-brand-600 text-sm font-semibold transition-colors">
                         Need to submit another survey?
                     </button>
                 </div>
@@ -329,26 +359,26 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 border-t border-gray-800">
+    <footer class="bg-gray-900 text-white py-16 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-2xl font-bold tracking-tight mb-2 flex justify-center items-center gap-2">
-                <!-- Tiny Footer Logo -->
-                <svg class="w-5 h-5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
-                </svg>
+            <h2 class="text-2xl font-extrabold tracking-tight mb-3 flex justify-center items-center gap-2">
+                <div class="w-6 h-6 bg-brand-600 text-white rounded flex items-center justify-center">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                    </svg>
+                </div>
                 Next<span class="text-brand-500">Up</span>
             </h2>
-            <p class="text-gray-400 mb-6">Performance-Based Marketing Solutions</p>
+            <p class="text-gray-400 mb-8 font-medium">Performance-Based Marketing Solutions</p>
             
-            <div class="flex items-center justify-center space-x-2 text-gray-300 hover:text-white transition-colors mb-8">
+            <div class="flex items-center justify-center space-x-2.5 text-gray-400 hover:text-white transition-colors mb-10">
                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <!-- Changed to a button that triggers copy function instead of mailto: -->
                 <button type="button" onclick="copyEmailToClipboard('NextUpAdvertising1@gmail.com')" class="font-medium hover:text-brand-400 focus:outline-none transition-colors">NextUpAdvertising1@gmail.com</button>
             </div>
             
-            <div class="border-t border-gray-800 pt-8 text-gray-500 text-sm">
+            <div class="border-t border-gray-800/80 pt-8 text-gray-500 text-sm font-medium">
                 &copy; <span id="year"></span> NextUp Advertising. All rights reserved.
             </div>
         </div>
@@ -373,35 +403,26 @@
         // SPA ROUTING (Switching "Pages" within one file)
         // ----------------------------------------------------
         function handleRouting() {
-            // Get the hash from the URL (e.g., #about), default to #home
             let hash = window.location.hash || '#home';
             
-            // Logic to keep them on the "Thank You" page if they click "Get Started" after already submitting
             if (hash === '#contact' && hasSubmittedForm) {
                 hash = '#thank-you';
-                // Silently update the URL to match where they actually are
                 history.replaceState(null, null, '#thank-you');
             }
 
-            // Hide all page sections
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(sec => sec.classList.add('hidden'));
             
-            // Find the target section and show it
             const targetSection = document.querySelector(hash);
             if (targetSection) {
                 targetSection.classList.remove('hidden');
-                // Scroll to top when changing "pages"
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                // Fallback to home if hash is invalid
                 document.getElementById('home').classList.remove('hidden');
             }
         }
 
-        // Listen for hash changes (when user clicks navigation links)
         window.addEventListener('hashchange', handleRouting);
-        // Run once on page load to check initial URL
         window.addEventListener('load', handleRouting);
 
         // ----------------------------------------------------
@@ -415,7 +436,6 @@
             menu.classList.toggle('hidden');
         });
 
-        // Close mobile menu when a link is clicked
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
                 menu.classList.add('hidden');
@@ -423,23 +443,20 @@
         });
 
         // ----------------------------------------------------
-        // COPY EMAIL TO CLIPBOARD (With Fallback for local testing)
+        // COPY EMAIL TO CLIPBOARD
         // ----------------------------------------------------
         function copyEmailToClipboard(email) {
-            // Helper function to animate the toast down and back up
             const showToast = () => {
                 const toast = document.getElementById('copy-toast');
                 toast.classList.remove('-translate-y-full');
-                toast.classList.add('translate-y-4'); // Adds a slight margin from the exact top
+                toast.classList.add('translate-y-4'); 
 
-                // Hide toast after 2 seconds
                 setTimeout(() => {
                     toast.classList.remove('translate-y-4');
                     toast.classList.add('-translate-y-full');
-                }, 2000);
+                }, 2500);
             };
 
-            // Modern approach (Works on HTTPS or Localhost)
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(email).then(() => {
                     showToast();
@@ -448,30 +465,22 @@
                     fallbackCopy(email, showToast);
                 });
             } else {
-                // Fallback approach (Works on file:// local testing)
                 fallbackCopy(email, showToast);
             }
         }
 
         function fallbackCopy(text, successCallback) {
             try {
-                // Create an invisible text area
                 const textArea = document.createElement("textarea");
                 textArea.value = text;
-                
-                // Move it completely off-screen so it doesn't mess up layout
                 textArea.style.position = "fixed";
                 textArea.style.left = "-999999px";
                 textArea.style.top = "-999999px";
                 document.body.appendChild(textArea);
-                
-                // Focus and select the text
                 textArea.focus();
                 textArea.select();
-                
-                // Execute the classic copy command
                 const successful = document.execCommand('copy');
-                document.body.removeChild(textArea); // Clean up
+                document.body.removeChild(textArea); 
                 
                 if (successful) {
                     successCallback();
@@ -492,47 +501,41 @@
         const submitBtn = document.getElementById('submit-btn');
 
         form.addEventListener('submit', async function(e) {
-            e.preventDefault(); // Stop normal submission (prevents page reload)
+            e.preventDefault(); 
             
             const actionUrl = form.getAttribute('action');
             const formData = new FormData(form);
             
-            // UI Feedback: Change button text while loading
             const originalBtnText = submitBtn.innerText;
             submitBtn.innerText = "Sending...";
             submitBtn.disabled = true;
-            formError.classList.add('hidden'); // Hide any previous errors
+            formError.classList.add('hidden'); 
             
-            // Check if the user hasn't replaced the placeholder Formspree URL yet
             if (actionUrl.includes('YOUR_FORM_ID_HERE')) {
-                // Simulate a fast submission for testing
                 setTimeout(() => {
-                    hasSubmittedForm = true; // Set persistent state
-                    window.location.hash = '#thank-you'; // Switch to thank you page
-                    form.reset(); // Clear the form for next time
+                    hasSubmittedForm = true; 
+                    window.location.hash = '#thank-you'; 
+                    form.reset(); 
                     submitBtn.innerText = originalBtnText;
                     submitBtn.disabled = false;
                 }, 800);
                 return;
             }
 
-            // Real submission via AJAX (Fetch API)
             try {
                 const response = await fetch(actionUrl, {
                     method: 'POST',
                     body: formData,
                     headers: {
-                        'Accept': 'application/json' // Tells Formspree to return JSON instead of a webpage
+                        'Accept': 'application/json' 
                     }
                 });
 
                 if (response.ok) {
-                    // Success! Redirect to Thank You page
-                    hasSubmittedForm = true; // Set persistent state
+                    hasSubmittedForm = true; 
                     window.location.hash = '#thank-you';
-                    form.reset(); // Clear form
+                    form.reset(); 
                 } else {
-                    // Formspree returned an error (e.g. invalid setup)
                     const data = await response.json();
                     let errorMessage = "Oops! There was a problem submitting your form.";
                     if (Object.hasOwn(data, 'errors')) {
@@ -542,11 +545,9 @@
                     formError.classList.remove('hidden');
                 }
             } catch (error) {
-                // Network error
                 formError.innerText = "Oops! There was a network error. Please try again.";
                 formError.classList.remove('hidden');
             } finally {
-                // Reset button state
                 submitBtn.innerText = originalBtnText;
                 submitBtn.disabled = false;
             }
